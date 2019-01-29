@@ -1,10 +1,18 @@
 {% extends 'layout.html' %}
 {% block content %}
     {% for post in posts %}
-        <h1>{{ post.title }}</h1>
-        <p>By {{ post.author }} </p>
-        <p>On {{ post.date }} </p>
-        <p>{{ post.content }}</p>
+        <article class="media content-section"></article>
+            <div class="card border-secondary mb-3" style="max-width: 40rem;">
+                <div class="card-header">
+                    <a class="mb-2" href="#">{{ post.author  }}</a>
+                    <small class="pull-right">{{ post.date }}</small>
+                </div>
+                <div class="card-body">
+                    <h4><a class="card-title" href="#">{{ post.title }}</a></h4>  
+                    <p class="card-text">{{ post.content }}</p>
+                </div>
+            </div>
+        </article>
     {% endfor %}
 {% endblock content %}
       
