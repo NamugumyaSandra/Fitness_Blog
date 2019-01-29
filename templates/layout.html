@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% if title %}
+        <title>Fitness_Blog-{{title}}</title>
+    {% else %}
+        <title>Fitness_Blog</title>
+    {% endif %}
+</head>
+<body>
+    {% block content %}
+    {% endblock content %}
+</body>
+</html>
