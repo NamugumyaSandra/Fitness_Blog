@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <article class="media content-section">
+        <div class="card border-secondary mb-3" style="max-width: 40rem;">
+            <img class='rounded-circle article-img' src="{{ url_for('static', filename='profile_pics/'+ post.author.image_file)}}">
+            <div class="card-header">
+                <a class="mb-2" href="#">{{ post.author.username  }}</a>
+                <small class="pull-right">{{ post.date.strftime('%y-%m-%d') }}</small>
+                {% if post.author == current_user %}
+                 <div>
+                     <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('update_post',post_id=post.id)}}"> Update</a>
+                     <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                 </div>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">{{ post.title }}</h4>  
+                <p class="card-text">{{ post.content }}</p>
+            </div>
+        </div>
+    </article>
+    <!--Modal-->
+    <div class="modal fade" id="deleteModal" tabinex="-1" role="dialog"arial-labelledby="deleteModalLabel">
+        
+    </div>
+{% endblock content %}
