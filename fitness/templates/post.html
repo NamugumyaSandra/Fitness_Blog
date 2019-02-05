@@ -1,26 +1,47 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <article class="media content-section">
-        <div class="card border-secondary mb-3" style="max-width: 40rem;">
-            <img class='rounded-circle article-img' src="{{ url_for('static', filename='profile_pics/'+ post.author.image_file)}}">
-            <div class="card-header">
-                <a class="mb-2" href="#">{{ post.author.username  }}</a>
-                <small class="pull-right">{{ post.date.strftime('%y-%m-%d') }}</small>
-                {% if post.author == current_user %}
-                 <div>
-                     <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('update_post',post_id=post.id)}}"> Update</a>
-                     <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
-                 </div>
-                {% endif %}
+    <div class="content-section">
+        <article class="media">
+            <div class="card mb-3" style="max-width: 40rem;">
+                <img class='rounded-circle article-img' src="{{ url_for('static', filename='profile_pics/'+ post.author.image_file)}}">
+                <div class="card-header">
+                    <a class="mb-2" href="{{url_for('user_posts',username=post.author.username)}}">{{ post.author.username  }}</a>
+                    <small class="pull-right">{{ post.date.strftime('%y-%m-%d') }}</small>
+                    {% if post.author == current_user %}
+                    <div>
+                        <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('update_post',post_id=post.id)}}"> Update</a>
+                        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{ post.title }}</h4>  
+                    <p class="card-text">{{ post.content }}</p>
+                </div>
             </div>
-            <div class="card-body">
-                <h4 class="card-title">{{ post.title }}</h4>  
-                <p class="card-text">{{ post.content }}</p>
+        </article>
+    </div>
+        
+        <!--Modal-->
+    <div class="modal fade" id="deleteModal" tabinex="-1" role="dialog"arial-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">
+                        Are you sure you want to Delete post?
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="bn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="{{ url_for('delete_post', post_id=post.id)}}" method="POST">
+                        <input type="submit" class="btn bn-danger" value="Delete">
+                    </form>
+                </div>
             </div>
         </div>
-    </article>
-    <!--Modal-->
-    <div class="modal fade" id="deleteModal" tabinex="-1" role="dialog"arial-labelledby="deleteModalLabel">
-        
     </div>
+        
 {% endblock content %}
