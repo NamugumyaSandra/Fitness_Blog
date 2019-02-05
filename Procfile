@@ -1,1 +1,1 @@
-web: gunicorn fitness:app
+web gunicorn fitness:app
