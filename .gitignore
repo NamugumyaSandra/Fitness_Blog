@@ -3,3 +3,4 @@ starter.css
 /.vscode
 __pycache__
 site.db
+fitness/static/profile_pics/default.jpg

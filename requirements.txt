@@ -1,9 +1,10 @@
 flask
 flask-wtf
 flask-SQLAlchemy
-pillow
-flask-bcrypt
 flask-login
+flask-bcrypt
 gunicorn
+pillow
+flask-mail
 
 
