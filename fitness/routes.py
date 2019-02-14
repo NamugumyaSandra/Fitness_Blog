@@ -3,7 +3,7 @@ import secrets
 from PIL import Image
 from flask import render_template,url_for,flash,redirect,request,abort
 from fitness import app, db, bcrypt
-from fitness.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
+from fitness.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm, CommentForm
 from fitness.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -144,3 +144,19 @@ def user_posts(username):
         .order_by(Post.date.desc())\
         .paginate(page=page,per_page=5)
     return render_template('user_posts.html',posts=posts, user=user)
+
+@app.route('/post/<int:post_id>/comment', methods=['GET', 'POST'])
+@login_required
+def comment(post_id):
+    # post = Post.query.get_or_404(post_id)
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(comment=form.content.data, post=post_id,author=current_user)
+        db.session.add(comment)
+        db.session.commit()
+        flash('Comment Posted!','success')
+        return redirect(url_for('home'))
+    # elif request.method == 'GET':   
+    #     form.content.data = comment.content
+    return render_template('create_comment.html', title='Comment', form=form, legend='Comment')
+
