@@ -7,10 +7,10 @@ from fitness.models import User
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=5, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(),EqualTo('password')])
+    username = StringField('Username', validators=[DataRequired(), Length(min=5, max=20)],render_kw={"placeholder": "Username"})
+    email = StringField('Email', validators=[DataRequired(), Email()],render_kw={"placeholder": "Email"})
+    password = PasswordField('Password', validators=[DataRequired()],render_kw={"placeholder": "Password"})
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(),EqualTo('password')],render_kw={"placeholder": "Confirm_Password"})
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
@@ -25,14 +25,14 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()],render_kw={"placeholder": "Email"})
+    password = PasswordField('Password', validators=[DataRequired()],render_kw={"placeholder": "Password"})
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
 class UpdateAccountForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=5, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField('Username', validators=[DataRequired(), Length(min=5, max=20)],render_kw={"placeholder": "Username"})
+    email = StringField('Email', validators=[DataRequired(), Email()],render_kw={"placeholder": "Email"})
     picture = FileField('Update Profile Picture', validators = [FileAllowed(['jpg','png'])])
     submit = SubmitField('Update')
 
@@ -49,8 +49,8 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('Email already in use.')
 
 class PostForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
-    content = TextAreaField('Content', validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired()],render_kw={"placeholder": "Post title"})
+    content = TextAreaField('Content', validators=[DataRequired()],render_kw={"placeholder": "Post Content"})
     submit = SubmitField('Post')
 
 class CommentForm(FlaskForm):
