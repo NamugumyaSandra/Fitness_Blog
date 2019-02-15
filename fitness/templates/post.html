@@ -1,29 +1,27 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <div class="content-section">
-        <article class="media">
-            <div class="card mb-3" style="max-width: 40rem;">
-                <img class='rounded-circle article-img' src="{{ url_for('static', filename='profile_pics/'+ post.author.image_file)}}">
-                <div class="card-header">
-                    <a class="mb-2" href="{{url_for('user_posts',username=post.author.username)}}">{{ post.author.username  }}</a>
-                    <small class="pull-right">{{ post.date.strftime('%y-%m-%d') }}</small>
-                    {% if post.author == current_user %}
-                    <div>
-                        <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('update_post',post_id=post.id)}}"> Update</a>
-                        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
-                        <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('comment',post_id=post.id)}}"> Comment</a>
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">{{ post.title }}</h4>  
-                    <p class="card-text">{{ post.content }}</p>
-                </div>
-            </div>
-        </article>
-    </div>
-        
-        <!--Modal-->
+
+    <article class="media content-section">
+        <img class='rounded-circle article-img' src="{{ url_for('static', filename='profile_pics/'+ post.author.image_file)}}">
+        <div class="media-body">
+            <span mb-2>
+                <a class="mb-2" href="{{url_for('user_posts',username=post.author.username)}}">{{ post.author.username  }}</a></a>&#8739;
+                <small class="pull-right">{{ post.date.strftime('%y-%m-%d') }}</small>
+            </span>
+            {% if post.author == current_user %}
+            <span class="pull-right">
+                <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('update_post',post_id=post.id)}}"> Update</a>
+                <button type="button" class="btn btn-danger btn-sm m-1 " data-toggle="modal" data-target="#deleteModal">Delete</button>
+                <a class="btn btn-info btn-sm m-1" href="{{ url_for('new_comment',post_id=post.id)}}"> Comment</a>
+                <hr my-4>
+            </span>
+            {% endif %}
+            <h4>{{ post.title }}</h4>  
+            <p>{{ post.content }}</p>
+        </div>
+        <a class="link-item" href="#">Comments</a>    
+    </article>
+        <!--Delete Modal-->
     <div class="modal fade" id="deleteModal" tabinex="-1" role="dialog"arial-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

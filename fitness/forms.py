@@ -54,5 +54,5 @@ class PostForm(FlaskForm):
     submit = SubmitField('Post')
 
 class CommentForm(FlaskForm):
-    content = TextAreaField('Content', validators=None)
+    content = TextAreaField('Content', validators=None, render_kw={"placeholder": "Enter comment here"})
     submit = SubmitField('Post')
